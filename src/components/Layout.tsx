@@ -7,7 +7,13 @@ import gsap, { Elastic, Power4 } from 'gsap';
 
 const lato = Maven_Pro({ subsets: ['latin'], weight: '400' });
 
-export const Layout = ({ children }: { children: React.ReactNode }) => {
+export const Layout = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   const ref = useRef<HTMLDivElement>(null!);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -28,7 +34,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     <div
       className={clsx([
         lato.className,
-        'w-full z-50 h-screen overflow-hidden text-white p-[22px_28px] sm:p-[22px_48px] bg-[#101010]',
+        'w-full z-50 h-screen overflow-x-hidden text-white p-[22px_28px] sm:p-[22px_48px] bg-black',
+        className,
       ])}
     >
       {isDesktop && (

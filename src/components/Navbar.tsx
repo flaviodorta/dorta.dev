@@ -1,24 +1,49 @@
 import { useRouter } from 'next/router';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Logo from './Logo';
 import MagneticDiv from './MagneticDiv';
 import { Anton } from '@next/font/google';
 import clsx from 'clsx';
 import { RxTriangleUp } from 'react-icons/rx';
 import Link from 'next/link';
+import { Elastic, Power1, Power4 } from 'gsap';
+
+import gsap from 'gsap';
+import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 const anton = Anton({ subsets: ['latin'], weight: '400' });
 
 const Navbar = () => {
-  const buttons = ['home', 'services', 'contact'];
+  const buttons = ['about', 'works', 'services', 'contact'];
   const { pathname, replace } = useRouter();
   const handleRedirect = (pathname: string) => replace(pathname);
   const refs = useRef<HTMLDivElement[]>([]);
-  console.log(refs);
+  const navRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(navRef.current, {
+        y: -50,
+        opacity: 0,
+        duration: 1.7,
+        ease: 'cubic-bezier(.1,.81,.34,.97)',
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  // console.log(refs);
 
   return (
-    <div className='relative w-full flex items-center justify-between'>
-      <Logo />
+    <div
+      ref={navRef}
+      className='relative w-full flex items-center justify-between'
+    >
+      <div ref={logoRef}>
+        <Logo />
+      </div>
 
       <ul className='-mr-[26px] hidden md:flex gap-4 text-lg'>
         {buttons.map((button) => (
