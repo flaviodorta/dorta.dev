@@ -8,6 +8,7 @@ import { RxDoubleArrowDown } from 'react-icons/rx';
 import gsap, { Elastic, Expo, Power1, Power4 } from 'gsap';
 import SplitType from 'split-type';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
+import { twMerge } from 'tailwind-merge';
 
 const worksSans300 = Work_Sans({ weight: '300', subsets: ['latin'] });
 const worksSans400 = Work_Sans({ weight: '400', subsets: ['latin'] });
@@ -35,16 +36,11 @@ const Index = () => {
     const ctx = gsap.context(() => {
       const t1 = gsap.timeline({ defaults: { duration: 1 } });
 
-      gsap.from(navbarRef.current, {
-        y: -304,
-        duration: 0.4,
-      });
-
       t1.fromTo(
         '#char',
         {
           y: 270,
-          skewY: 10,
+          skewY: 20,
           skewX: 3,
           // stagger: 0.13,
         },
@@ -56,8 +52,9 @@ const Index = () => {
           stagger: 0.13,
         }
       )
-        .from(sloganPointRef.current, {
+        .from('#char2', {
           opacity: 0,
+          delay: 0.3,
         })
         .from(scrollRef.current, {
           opacity: 0,
@@ -68,6 +65,10 @@ const Index = () => {
           yoyo: true,
           repeat: -1,
           ease: Power1.easeIn,
+        })
+        .from(navbarRef.current, {
+          y: -304,
+          duration: 0.4,
         });
     });
 
@@ -76,91 +77,126 @@ const Index = () => {
 
   return (
     <Layout>
-      {/* <div ref={navbarRef}> */}
       <Navbar ref={navbarRef} />
-      {/* </div> */}
 
-      <div className='flex mt-12 lg:mt-14'>
-        <main>
-          <div className='w-full flex flex-col lg:flex-row justify-center items-center'>
-            <div className='flex justify-start'>
-              <div className='flex flex-col xl:flex-row self-center text-sm md:text-md lg:text-lg h-fit'>
-                <div>
-                  <span
-                    className={clsx([
-                      worksSans400.className,
-                      'uppercase background-primary w-fit bg-primary whitespace-nowrap leading-10 px-2 py-1',
-                    ])}
-                  >
-                    Who am I?
-                  </span>
-                </div>
-
+      <main
+        className={twMerge(['h-full mt-6 pb-10 flex flex-col', 'lg:mt-14'])}
+      >
+        <div
+          className={clsx([
+            'w-full flex flex-col justify-center items-center',
+            'lg:flex-row',
+          ])}
+        >
+          <div className='flex justify-start'>
+            <div
+              className={clsx([
+                'flex flex-col self-center text-sm h-fit',
+                'xl:flex-row md:text-md lg:text-lg',
+              ])}
+            >
+              <div>
                 <span
                   className={clsx([
-                    worksSans300.className,
-                    'uppercase w-[600px] md:text-justify px-2 py-1 tracking-wider leading-8',
+                    worksSans400.className,
+                    'uppercase background-primary w-fit bg-primary whitespace-nowrap leading-10 px-2 py-1',
                   ])}
                 >
-                  I am Flávio Dorta, a full-stack developer with experience in
-                  creating creative solutions for web applications. My approach
-                  is user-centric and I enjoy experimenting with new ideas and
-                  technologies. With skills in both front-end and back-end
-                  development, I can create complete and integrated solutions. I
-                  believe in teamwork and collaboration to achieve the best
-                  results. I am always seeking new challenges to overcome.
+                  Who am I?
                 </span>
               </div>
-            </div>
 
-            <div className='w-full mt-8 md:pt-0  h-full flex justify-center'>
-              <Image
-                className='z-[2]'
-                src='/eu1.jpeg'
-                width={300}
-                height={600 / 16 / 9}
-                alt='Flávio Dorta'
-              />
+              <p
+                className={twMerge([
+                  worksSans300.className,
+                  'uppercase text-justify px-2 py-1 tracking-wider leading-8',
+                  'md:w-[600px]',
+                ])}
+              >
+                I am Flávio Dorta, a full-stack developer with experience in
+                creating creative solutions for web applications. My approach is
+                user-centric and I enjoy experimenting with new ideas and
+                technologies. With skills in both front-end and back-end
+                development, I can create complete and integrated solutions. I
+                believe in teamwork and collaboration to achieve the best
+                results. I am always seeking new challenges to overcome.
+              </p>
             </div>
           </div>
 
           <div
-            className={clsx([
-              anton.className,
-              'flex flex-col md:flex-row justify-between w-full overflow-hidden items-center mt-24 md:mt-40 text-[98px] lg:text-[128px] xl:text-[168px] uppercase',
+            className={twMerge([
+              'w-full h-full mt-8 flex justify-center',
+              'md:pt-0',
             ])}
           >
-            <h1
-              ref={sloganRef}
-              className='flex flex-col lg:flex-row whitespace-nowrap overflow-hidden'
-            >
-              <span className='overflow-hidden'>{sloganPartOne}</span>
-              <span className='hidden lg:inline-block'>&#8194;</span>
-              <span className='overflow-hidden flex justify-start'>
-                {sloganPartTwo}
-                <span
-                  className='overflow-hidden text-primary'
-                  ref={sloganPointRef}
-                >
-                  .
-                </span>
-              </span>
-            </h1>
+            <Image
+              className='z-[2]'
+              src='/eu1.jpeg'
+              width={300}
+              height={600 / 16 / 9}
+              alt='Flávio Dorta'
+            />
+          </div>
+        </div>
 
-            <span
-              ref={scrollRef}
-              className='flex-center mx-auto gap-2 w-fit justify-center'
-            >
-              <RxDoubleArrowDown className='text-primary h-7 w-7' />
+        <div
+          className={twMerge([
+            anton.className,
+            'w-full mt-6 flex flex-col items-center justify-around text-[58px] uppercase',
+            'sm:mt-10',
+            'xl:flex-row',
+          ])}
+        >
+          <h1
+            ref={sloganRef}
+            className={twMerge([
+              'flex text-[10vw] whitespace-nowrap tracking-wide overflow-hidden',
+              'lg:text-[108px]',
+              'xl:text-[148px]',
+            ])}
+          >
+            <p id='char2' className={twMerge(['lg:inline-block text-primary'])}>
+              {'{'}
+            </p>
+            <span>{sloganPartOne}</span>
+            <p id='char2' className={twMerge(['lg:inline-block text-primary'])}>
+              _
+            </p>
+            <span>
+              {sloganPartTwo}
               <span
-                className={clsx([worksSans400.className, 'uppercase text-lg'])}
+                className='overflow-hidden text-primary'
+                // ref={sloganPointRef}
+                id='char2'
               >
-                Scroll
+                {'}'}
               </span>
             </span>
-          </div>
-        </main>
-      </div>
+          </h1>
+
+          <span
+            ref={scrollRef}
+            className={clsx([
+              'mt-6 text-[2vw] flex-center gap-2 justify-center',
+              'sm:text-sm',
+              'md:mt-8',
+              'lg:mt-12',
+            ])}
+          >
+            <RxDoubleArrowDown
+              className={twMerge([
+                'text-primary h-3 w-3',
+                'sm:w-4 sm:h-4',
+                'md:w-5 md:h-5',
+              ])}
+            />
+            <span className={clsx([worksSans400.className, 'uppercase'])}>
+              Scroll
+            </span>
+          </span>
+        </div>
+      </main>
     </Layout>
   );
 };
