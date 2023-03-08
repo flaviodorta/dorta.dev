@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 import Logo from './Logo';
@@ -13,28 +14,13 @@ import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 const anton = Anton({ subsets: ['latin'], weight: '400' });
 
-const Navbar = () => {
+const Navbar = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
   const buttons = ['about', 'works', 'services', 'contact'];
   const { pathname, replace } = useRouter();
   const handleRedirect = (pathname: string) => replace(pathname);
   const refs = useRef<HTMLDivElement[]>([]);
   const navRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(navRef.current, {
-        y: -50,
-        opacity: 0,
-        duration: 1.7,
-        ease: 'cubic-bezier(.1,.81,.34,.97)',
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
-
-  // console.log(refs);
 
   return (
     <div
@@ -75,6 +61,8 @@ const Navbar = () => {
       </ul>
     </div>
   );
-};
+});
+
+Navbar.displayName = 'Navbar';
 
 export default Navbar;

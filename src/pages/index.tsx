@@ -27,46 +27,48 @@ const Index = () => {
   ));
 
   const sloganRef = useRef<HTMLHeadingElement>(null!);
-  const scrollRef = useRef<HTMLSpanElement>(null);
+  const scrollRef = useRef<HTMLSpanElement>(null!);
   const sloganPointRef = useRef<HTMLSpanElement>(null!);
+  const navbarRef = useRef<HTMLDivElement>(null!);
 
   useIsomorphicLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
+      const t1 = gsap.timeline({ defaults: { duration: 1 } });
+
+      gsap.from(navbarRef.current, {
+        y: -304,
+        duration: 0.4,
+      });
+
+      t1.fromTo(
         '#char',
         {
           y: 270,
-          skewY: 4,
+          skewY: 10,
           skewX: 3,
-          stagger: 0.13,
+          // stagger: 0.13,
         },
         {
           y: 0,
           skewY: 0,
           skewX: 0,
+          duration: 0.48,
           stagger: 0.13,
         }
-      );
-
-      gsap.to(scrollRef.current, {
-        y: 10,
-        yoyo: true,
-        repeat: -1,
-        duration: 1,
-        ease: Power1.easeIn,
-      });
-
-      // gsap.to(scrollRef.current, {
-      //   yoyo: true,
-      //   duration: Infinity,
-      //   repeat: -1,
-      //   y: 10,
-      // });
-
-      gsap.from(sloganPointRef.current, {
-        delay: 2.6,
-        opacity: 0,
-      });
+      )
+        .from(sloganPointRef.current, {
+          opacity: 0,
+        })
+        .from(scrollRef.current, {
+          opacity: 0,
+          ease: Power1.easeIn,
+        })
+        .to(scrollRef.current, {
+          y: 10,
+          yoyo: true,
+          repeat: -1,
+          ease: Power1.easeIn,
+        });
     });
 
     return () => ctx.revert();
@@ -74,13 +76,15 @@ const Index = () => {
 
   return (
     <Layout>
-      <Navbar />
+      {/* <div ref={navbarRef}> */}
+      <Navbar ref={navbarRef} />
+      {/* </div> */}
 
-      <div className='flex pt-16 md:pt-20 justify-center'>
-        <main className='relative'>
-          <div className='grid grid-cols-1 text-justify md:grid-cols-2 w-full'>
-            <div className='flex items-center'>
-              <div className='flex-col md:flex-row flex text-lg h-fit'>
+      <div className='flex mt-12 lg:mt-14'>
+        <main>
+          <div className='w-full flex flex-col lg:flex-row justify-center items-center'>
+            <div className='flex justify-start'>
+              <div className='flex flex-col xl:flex-row self-center text-sm md:text-md lg:text-lg h-fit'>
                 <div>
                   <span
                     className={clsx([
@@ -95,7 +99,7 @@ const Index = () => {
                 <span
                   className={clsx([
                     worksSans300.className,
-                    'uppercase px-2 py-1 tracking-wider leading-8',
+                    'uppercase w-[600px] md:text-justify px-2 py-1 tracking-wider leading-8',
                   ])}
                 >
                   I am Flávio Dorta, a full-stack developer with experience in
@@ -109,7 +113,7 @@ const Index = () => {
               </div>
             </div>
 
-            <div className='pt-16 md:pt-0 w-full px-20 h-full flex-center'>
+            <div className='w-full mt-8 md:pt-0  h-full flex justify-center'>
               <Image
                 className='z-[2]'
                 src='/eu1.jpeg'
@@ -123,13 +127,23 @@ const Index = () => {
           <div
             className={clsx([
               anton.className,
-              'flex justify-between w-full overflow-hidden h-fit items-center absolute left-0 mt-40 text-[168px] uppercase',
+              'flex flex-col md:flex-row justify-between w-full overflow-hidden items-center mt-24 md:mt-40 text-[98px] lg:text-[128px] xl:text-[168px] uppercase',
             ])}
           >
-            <h1 ref={sloganRef} className='whitespace-nowrap overflow-hidden'>
-              {sloganPartOne} {sloganPartTwo}
-              <span ref={sloganPointRef} className='text-primary'>
-                .
+            <h1
+              ref={sloganRef}
+              className='flex flex-col lg:flex-row whitespace-nowrap overflow-hidden'
+            >
+              <span className='overflow-hidden'>{sloganPartOne}</span>
+              <span className='hidden lg:inline-block'>&#8194;</span>
+              <span className='overflow-hidden flex justify-start'>
+                {sloganPartTwo}
+                <span
+                  className='overflow-hidden text-primary'
+                  ref={sloganPointRef}
+                >
+                  .
+                </span>
               </span>
             </h1>
 
