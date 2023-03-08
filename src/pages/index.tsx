@@ -80,7 +80,7 @@ const Index = () => {
       <Navbar ref={navbarRef} />
 
       <main
-        className={twMerge(['h-full mt-6 pb-10 flex flex-col', 'lg:mt-14'])}
+        className={twMerge(['h-full mt-6 mb-20 flex flex-col', 'lg:mt-14'])}
       >
         <div
           className={clsx([
@@ -145,7 +145,7 @@ const Index = () => {
             anton.className,
             'w-full mt-6 flex flex-col items-center justify-around text-[58px] uppercase',
             'sm:mt-10',
-            'xl:flex-row',
+            '2xl:flex-row xl:mt-40',
           ])}
         >
           <h1
@@ -153,6 +153,7 @@ const Index = () => {
             className={twMerge([
               'flex text-[10vw] whitespace-nowrap tracking-wide overflow-hidden',
               'lg:text-[108px]',
+              'xl:text-[138px]',
               'xl:text-[148px]',
             ])}
           >
@@ -182,6 +183,7 @@ const Index = () => {
               'sm:text-sm',
               'md:mt-8',
               'lg:mt-12',
+              '2xl:mt-0',
             ])}
           >
             <RxDoubleArrowDown
