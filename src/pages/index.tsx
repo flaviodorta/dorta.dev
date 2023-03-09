@@ -48,8 +48,8 @@ const Index = () => {
           y: 0,
           skewY: 0,
           skewX: 0,
-          duration: 0.48,
-          stagger: 0.13,
+          duration: 0.38,
+          stagger: 0.08,
         }
       )
         .from('#char2', {
@@ -143,27 +143,25 @@ const Index = () => {
         <div
           className={twMerge([
             anton.className,
-            'w-full mt-6 flex flex-col items-center justify-around text-[58px] uppercase',
+            'w-full mt-6 flex flex-col items-center justify-between text-[58px] uppercase',
             'sm:mt-10',
-            '2xl:flex-row xl:mt-40',
+            '2xl:flex-row 2xl:mt-36',
           ])}
         >
           <h1
             ref={sloganRef}
             className={twMerge([
-              'flex text-[10vw] whitespace-nowrap tracking-wide overflow-hidden',
-              'lg:text-[108px]',
+              'w-fit flex text-[10vw] whitespace-nowrap tracking-wide overflow-hidden',
+              'lg:text-[108px] lg:-ml-[44px]',
               'xl:text-[138px]',
-              'xl:text-[148px]',
+              'xl:text-[178px]',
             ])}
           >
-            <p id='char2' className={twMerge(['lg:inline-block text-primary'])}>
+            {/* <p id='char2' className={twMerge(['lg:inline-block text-primary'])}>
               {'{'}
-            </p>
+            </p> */}
             <span>{sloganPartOne}</span>
-            <p id='char2' className={twMerge(['lg:inline-block text-primary'])}>
-              _
-            </p>
+            <span className={twMerge(['text-primary'])}>&nbsp;</span>
             <span>
               {sloganPartTwo}
               <span
@@ -171,7 +169,7 @@ const Index = () => {
                 // ref={sloganPointRef}
                 id='char2'
               >
-                {'}'}
+                .
               </span>
             </span>
           </h1>
@@ -179,7 +177,7 @@ const Index = () => {
           <span
             ref={scrollRef}
             className={clsx([
-              'mt-6 text-[2vw] flex-center gap-2 justify-center',
+              'mt-6 grow text-[2vw] flex-center gap-2 justify-center',
               'sm:text-sm',
               'md:mt-8',
               'lg:mt-12',
