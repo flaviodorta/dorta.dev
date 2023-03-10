@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --layout-padding-xsm: 22px;
+  --layout-padding-lg: 32px;
+  --navbar-height: 80px;
+}
+
 @layer base {
   *,
   *::before,

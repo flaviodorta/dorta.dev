@@ -5,10 +5,11 @@ import Navbar from '@/components/Navbar';
 import { Work_Sans, Anton } from '@next/font/google';
 import clsx from 'clsx';
 import { RxDoubleArrowDown } from 'react-icons/rx';
-import gsap, { Elastic, Expo, Power1, Power4 } from 'gsap';
+import gsap, { Elastic, Expo, Power1, Power2, Power4 } from 'gsap';
 import SplitType from 'split-type';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import { twMerge } from 'tailwind-merge';
+// import { CSSRulePlugin } from 'gsap/dist/CSSRulePlugin';
 
 const worksSans300 = Work_Sans({ weight: '300', subsets: ['latin'] });
 const worksSans400 = Work_Sans({ weight: '400', subsets: ['latin'] });
@@ -27,62 +28,90 @@ const Index = () => {
     </div>
   ));
 
-  const sloganRef = useRef<HTMLHeadingElement>(null!);
-  const scrollRef = useRef<HTMLSpanElement>(null!);
-  const sloganPointRef = useRef<HTMLSpanElement>(null!);
-  const navbarRef = useRef<HTMLDivElement>(null!);
+  const mainRef = useRef<HTMLElement>(null!);
 
   useIsomorphicLayoutEffect(() => {
     const ctx = gsap.context(() => {
+      const { CSSRulePlugin } = require('gsap/CSSRulePlugin');
+      gsap.registerPlugin(CSSRulePlugin);
       const t1 = gsap.timeline({ defaults: { duration: 1 } });
+      let rule = CSSRulePlugin.getRule('span:after');
 
-      t1.fromTo(
-        '#char',
-        {
-          y: 270,
-          skewY: 20,
-          skewX: 3,
-          // stagger: 0.13,
+      gsap.to(rule, {
+        duration: 0.4,
+        cssRule: {
+          width: '100%',
         },
-        {
-          y: 0,
-          skewY: 0,
-          skewX: 0,
-          duration: 0.38,
-          stagger: 0.08,
-        }
-      )
+      });
+
+      // gsap.to('#slogan-part-one', {
+      //   duration: 0.3,
+      //   ease: Power2.easeInOut,
+      //   top: 0,
+      // });
+
+      // gsap.to('#slogan-part-two', {
+      //   duration: 0.3,
+      //   ease: Power2.easeInOut,
+      //   top: 0,
+      // });
+
+      t1
+        // .fromTo(
+        //   '#char',
+        //   {
+        //     y: 270,
+        //     skewY: 20,
+        //     skewX: 3,
+        //     // stagger: 0.13,
+        //   },
+        //   {
+        //     y: 0,
+        //     skewY: 0,
+        //     skewX: 0,
+        //     duration: 0.38,
+        //     stagger: 0.08,
+        //   }
+        // )
         .from('#char2', {
           opacity: 0,
           delay: 0.3,
         })
-        .from(scrollRef.current, {
+
+        .from('#scroll', {
           opacity: 0,
           ease: Power1.easeIn,
         })
-        .to(scrollRef.current, {
+        .to('#scroll', {
           y: 10,
           yoyo: true,
           repeat: -1,
           ease: Power1.easeIn,
-        })
-        .from(navbarRef.current, {
-          y: -304,
-          duration: 0.4,
         });
-    });
+      // .from(navbarRef.current, {
+      //   y: -304,
+      //   duration: 0.4,
+      // });
+    }, mainRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
     <Layout>
-      <Navbar ref={navbarRef} />
+      <div id='navbar'>
+        <Navbar />
+      </div>
 
       <main
-        className={twMerge(['h-full mt-6 mb-20 flex flex-col', 'lg:mt-14'])}
+        ref={mainRef}
+        className={twMerge([
+          '*h-full flex flex-col justify-end *mt-6 *mb-20',
+          '*lg:mt-10',
+          'h-[calc(100%-112px)]',
+        ])}
       >
-        <div
+        {/* <div
           className={clsx([
             'w-full flex flex-col justify-center items-center',
             'lg:flex-row',
@@ -99,7 +128,8 @@ const Index = () => {
                 <span
                   className={clsx([
                     worksSans400.className,
-                    'uppercase background-primary w-fit bg-primary whitespace-nowrap leading-10 px-2 py-1',
+                    'uppercase relative background-primary w-fit bg-primary whitespace-nowrap leading-10 px-2 py-1',
+                    'after:absolute after:left-0 after:top-0 after:w-1/2 after:h-full after:bg-black after:origin-left',
                   ])}
                 >
                   Who am I?
@@ -138,51 +168,54 @@ const Index = () => {
               alt='Flávio Dorta'
             />
           </div>
-        </div>
+        </div> */}
 
         <div
           className={twMerge([
             anton.className,
-            'w-full mt-6 flex flex-col items-center justify-between text-[58px] uppercase',
-            'sm:mt-10',
-            '2xl:flex-row 2xl:mt-36',
+            'w-full flex flex-col items-center justify-between uppercase',
+            'md:flex-row',
           ])}
         >
-          <h1
-            ref={sloganRef}
+          <div
             className={twMerge([
-              'w-fit flex text-[10vw] whitespace-nowrap tracking-wide overflow-hidden',
-              'lg:text-[108px] lg:-ml-[44px]',
-              'xl:text-[138px]',
-              'xl:text-[178px]',
+              'w-fit flex flex-col justify-end mr-auto ml-0',
             ])}
           >
-            {/* <p id='char2' className={twMerge(['lg:inline-block text-primary'])}>
-              {'{'}
-            </p> */}
-            <span>{sloganPartOne}</span>
-            <span className={twMerge(['text-primary'])}>&nbsp;</span>
-            <span>
-              {sloganPartTwo}
-              <span
-                className='overflow-hidden text-primary'
-                // ref={sloganPointRef}
-                id='char2'
+            <div
+              className={twMerge([
+                'relative inline-block w-fit leading-none text-[14vw] overflow-hidden',
+                // 'xl:text-[17vw]',
+              ])}
+            >
+              <h1
+                id='slogan-part-one'
+                className='block relative leading-none tracking-wide'
               >
-                .
-              </span>
-            </span>
-          </h1>
+                Creative
+              </h1>
+            </div>
+
+            <div
+              className={twMerge([
+                'relative inline-block w-fit leading-none text-[17vw] overflow-hidden',
+              ])}
+            >
+              <h1
+                id='slogan-part-two'
+                className='block relative leading-none tracking-wide'
+              >
+                Developer
+                <span className='overflow-hidden text-primary' id='char2'>
+                  .
+                </span>
+              </h1>
+            </div>
+          </div>
 
           <span
-            ref={scrollRef}
-            className={clsx([
-              'mt-6 grow text-[2vw] flex-center gap-2 justify-center',
-              'sm:text-sm',
-              'md:mt-8',
-              'lg:mt-12',
-              '2xl:mt-0',
-            ])}
+            id='scroll'
+            className={clsx(['mt-auto grow  flex-center gap-2 justify-center'])}
           >
             <RxDoubleArrowDown
               className={twMerge([
@@ -191,7 +224,12 @@ const Index = () => {
                 'md:w-5 md:h-5',
               ])}
             />
-            <span className={clsx([worksSans400.className, 'uppercase'])}>
+            <span
+              className={clsx([
+                worksSans400.className,
+                'uppercase text-[0.85vw]',
+              ])}
+            >
               Scroll
             </span>
           </span>

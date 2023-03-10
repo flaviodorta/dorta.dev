@@ -34,7 +34,7 @@ export const Layout = ({
     <div
       className={clsx([
         lato.className,
-        'w-full z-50 h-screen min-h-screen overflow-x-hidden text-white p-[22px_28px] sm:p-[22px_48px] lg:p-[32px_56px] bg-black',
+        'w-full z-50 h-screen min-h-screen overflow-x-hidden text-white p-[22px_22px_0_22px] lg:p-[32px_32px_0_32px] bg-black',
         className,
       ])}
     >

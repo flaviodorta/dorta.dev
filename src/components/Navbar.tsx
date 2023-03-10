@@ -11,6 +11,7 @@ import { Elastic, Power1, Power4 } from 'gsap';
 
 import gsap from 'gsap';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
+import { twMerge } from 'tailwind-merge';
 
 const anton = Anton({ subsets: ['latin'], weight: '400' });
 
@@ -25,14 +26,14 @@ const Navbar = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
   return (
     <div
       ref={navRef}
-      className='relative w-full flex items-center justify-between'
+      className='relative h-[var(--navbar-height)] w-full flex items-center justify-between'
     >
       <div ref={logoRef}>
         <Logo />
       </div>
 
-      <ul className='-mr-[26px] hidden md:flex gap-4 text-lg'>
-        {buttons.map((button) => (
+      <ul className='hidden md:flex gap-4 text-lg'>
+        {buttons.map((button, i, arr) => (
           <Link key={button} href={button}>
             <MagneticDiv
               key={button}
@@ -40,9 +41,9 @@ const Navbar = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
               tollerance={0.43}
               speed={0.3}
               onClick={() => handleRedirect(button)}
-              className={clsx([
-                'group p-[32px_26px] uppercase relative flex items-center justify-center',
-                // anton.className,
+              className={twMerge([
+                'group p-[30px_15px] uppercase relative flex items-center justify-center',
+                i === arr.length - 1 && 'pr-0',
               ])}
             >
               <span className='uppercase tracking-wide'>{button}</span>
