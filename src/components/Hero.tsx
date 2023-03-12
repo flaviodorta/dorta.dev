@@ -36,13 +36,13 @@ const Hero = () => {
 
       tl.current
         .to('#slogan', {
-          duration: 1.4,
+          duration: 1.5,
           stagger: {
             amount: 0.1,
           },
           ease: Power1.easeInOut,
           top: 0,
-          delay: 1,
+          delay: 1.5,
         })
         .from('#scroll', {
           opacity: 0,
