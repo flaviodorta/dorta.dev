@@ -1,19 +1,13 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Logo from './Logo';
 import MagneticDiv from './MagneticDiv';
-import { Anton } from '@next/font/google';
-import clsx from 'clsx';
 import { RxTriangleUp } from 'react-icons/rx';
 import Link from 'next/link';
-import { Elastic, Power1, Power4 } from 'gsap';
-
-import gsap from 'gsap';
-import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import { twMerge } from 'tailwind-merge';
-
-const anton = Anton({ subsets: ['latin'], weight: '400' });
+import { worksSans } from '@/pages/_app';
+import clsx from 'clsx';
 
 const Navbar = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
   const buttons = ['about', 'works', 'services', 'contact'];
@@ -32,7 +26,7 @@ const Navbar = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
         <Logo />
       </div>
 
-      <ul className='hidden md:flex gap-4 text-lg'>
+      <ul className='hidden md:flex gap-4 text-lg outline-none'>
         {buttons.map((button, i, arr) => (
           <Link key={button} href={button}>
             <MagneticDiv
@@ -42,11 +36,19 @@ const Navbar = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
               speed={0.3}
               onClick={() => handleRedirect(button)}
               className={twMerge([
-                'group p-[30px_15px] uppercase relative flex items-center justify-center',
+                'group p-[30px_15px] uppercase relative flex items-center justify-center outline-none',
                 i === arr.length - 1 && 'pr-0',
               ])}
             >
-              <span className='uppercase tracking-wide'>{button}</span>
+              <span
+                className={clsx([
+                  'uppercase tracking-wide outline-none',
+                  // worksSans.className
+                ])}
+              >
+                {button}
+              </span>
+
               <MagneticDiv
                 scale={9.1}
                 tollerance={2.6}

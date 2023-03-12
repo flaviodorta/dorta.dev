@@ -1,11 +1,8 @@
-import React, { forwardRef, useLayoutEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import clsx from 'clsx';
-import { Lato, Maven_Pro } from '@next/font/google';
 import { isDesktop } from 'react-device-detect';
-import { useEventListener, useIsomorphicLayoutEffect } from 'usehooks-ts';
-import gsap, { Elastic, Power4 } from 'gsap';
-
-const lato = Maven_Pro({ subsets: ['latin'], weight: '400' });
+import { useEventListener } from 'usehooks-ts';
+import gsap from 'gsap';
 
 export const Layout = ({
   children,
@@ -22,8 +19,8 @@ export const Layout = ({
 
     gsap.to(ref.current, {
       duration: 1.6,
-      x: e.clientX,
-      y: e.clientY,
+      x: mousePosition.x,
+      y: mousePosition.y,
       ease: 'elastic.out(1.1, .44)',
     });
   };
@@ -33,7 +30,6 @@ export const Layout = ({
   return (
     <div
       className={clsx([
-        lato.className,
         'w-full z-50 h-screen min-h-screen overflow-x-hidden text-white p-[22px_22px_0_22px] lg:p-[32px_32px_0_32px] bg-black',
         className,
       ])}

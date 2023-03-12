@@ -1,14 +1,12 @@
-import { Anton } from '@next/font/google';
 import clsx from 'clsx';
-
-const anton = Anton({ subsets: ['latin'], weight: '400' });
+import { anton } from '@/pages/_app';
 
 const Logo = () => {
   return (
     <h1
       className={clsx([
-        anton.className,
         'uppercase tracking-wide flex items-center text-xl sm:text-4xl',
+        anton.className,
       ])}
     >
       <span className='text-primary text-2xl sm:text-5xl'>{'{'}</span>Dorta
