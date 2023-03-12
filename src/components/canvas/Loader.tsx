@@ -1,4 +1,7 @@
+import { anton } from '@/pages/_app';
+import { Prosto_One } from '@next/font/google';
 import { Html, useProgress } from '@react-three/drei';
+import clsx from 'clsx';
 
 const CanvasLoader = () => {
   const { progress } = useProgress();
@@ -11,18 +14,17 @@ const CanvasLoader = () => {
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        zIndex: 2,
       }}
     >
       <span className='canvas-loader'></span>
       <p
-        style={{
-          fontSize: 14,
-          color: '#F1F1F1',
-          fontWeight: 800,
-          marginTop: 40,
-        }}
+        className={clsx([
+          anton.className,
+          'text-3xl font-bold -mt-20 text-white',
+        ])}
       >
-        {progress.toFixed(2)}%
+        {progress.toFixed(0)}%
       </p>
     </Html>
   );

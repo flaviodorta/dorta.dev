@@ -68,16 +68,16 @@ const ComputerCanvas = ({ className }: { className: string }) => {
       // style={{ height: '100vh' }}
       className={className}
     >
-      {/* <Suspense fallback={<Transition />}> */}
-      <OrbitControls
-        enableZoom={false}
-        maxPolarAngle={Math.PI / 2}
-        minPolarAngle={Math.PI / 2}
-        enableRotate={false}
-      />
+      <Suspense fallback={<CanvasLoader />}>
+        <OrbitControls
+          enableZoom={false}
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 2}
+          enableRotate={false}
+        />
 
-      <Computer isMobile={isMobileScreen} />
-      {/* </Suspense> */}
+        <Computer isMobile={isMobileScreen} />
+      </Suspense>
 
       <Preload all />
     </Canvas>

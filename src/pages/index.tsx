@@ -26,14 +26,14 @@ const Index = () => {
     }, 5000);
 
     router.events.on('routeChangeComplete', () =>
-      setTimeout(() => setIsTransitioning(false), 4500)
+      setTimeout(() => setIsTransitioning(false), 7500)
     );
 
     return () => {
       clearTimeout(replaceRouteTimer);
       clearTimeout(startTransitionTimer);
       router.events.off('routeChangeComplete', () =>
-        setTimeout(() => setIsTransitioning(false), 4500)
+        setTimeout(() => setIsTransitioning(false), 7500)
       );
     };
   }, []);

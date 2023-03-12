@@ -33,7 +33,7 @@ const Transition = () => {
             stagger: {
               amount: -0.75,
             },
-            delay: 2.4,
+            delay: 2.5,
             ease: Power1.easeInOut,
           });
       }, ref);
