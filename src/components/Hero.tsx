@@ -29,7 +29,7 @@ const Hero = () => {
       gsap.to('.scroll', {
         yoyo: true,
         y: -24,
-        duration: 2.5,
+        duration: 4,
         repeat: -1,
         ease: Power2.easeInOut,
       });
