@@ -16,7 +16,7 @@ const Index = () => {
   const ref = useRef<HTMLDivElement>(null!);
   const [isTransitioning, setIsTransitioning] = useRecoilState(transition);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const startTransitionTimer = setTimeout(() => {
       setIsTransitioning(true);
     }, 3500);

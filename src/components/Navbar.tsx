@@ -6,7 +6,6 @@ import MagneticDiv from './MagneticDiv';
 import { RxTriangleUp } from 'react-icons/rx';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
-import { worksSans } from '@/pages/_app';
 import clsx from 'clsx';
 
 const Navbar = React.forwardRef<HTMLDivElement, {}>((props, ref) => {

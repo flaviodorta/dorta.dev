@@ -3,6 +3,7 @@ import gsap, { Power1 } from 'gsap';
 import { useRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
+import { Html } from '@react-three/drei';
 
 const Transition = () => {
   const ref = useRef<HTMLDivElement>(null!);
@@ -32,7 +33,7 @@ const Transition = () => {
             stagger: {
               amount: -0.75,
             },
-            delay: 1.5,
+            delay: 2.4,
             ease: Power1.easeInOut,
           });
       }, ref);
