@@ -31,26 +31,20 @@ const Transition = () => {
             },
             ease: Power1.easeInOut,
           })
-          .to('.loader', {
-            opacity: 1,
-            duration: 1,
-          })
-          .to('.loader', {
-            duration: 0.5,
-            opacity: 0,
-            delay: 3 + 2.5,
-          })
           .to('.block', {
             transformOrigin: 'left',
           })
-          .to('.block', {
-            width: '0%',
-            stagger: {
-              amount: -0.75,
+          .to(
+            '.block',
+            {
+              width: '0%',
+              stagger: {
+                amount: -0.75,
+              },
+              ease: Power1.easeInOut,
             },
-            delay: 1,
-            ease: Power1.easeInOut,
-          })
+            '+=11.5'
+          )
           .call(() => {
             setIsTransitioning(false);
             setIsAnimating(true);
@@ -76,7 +70,7 @@ const Transition = () => {
           ref={ref}
           className='fixed -mt-[var(--layout-padding-xsm)] lg:-mt-[var(--layout-padding-lg)] w-screen h-screen z-[20]'
         >
-          <Loader c='loader opacity-0 text-6xl z-[100]' d={1000 + 750} />
+          <Loader d={1000 + 750} />
 
           <div className='block block-1 bg-primary' />
           <div className='block block-2' />

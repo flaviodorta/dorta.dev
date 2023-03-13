@@ -6,9 +6,11 @@
 - add initial loading screen
 - add about section
 - add computer three.js in contact section
+- fix progress intro
 
 # to do
 
+- add label on hover to scroll
 - add rgb effect on scroll
 - add smooth scroll gsap
 - add scrolling time line
