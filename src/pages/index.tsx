@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import { anton } from './_app';
 import Transition from '@/components/Transition';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { animation as animating, transition } from '@/recoil/atoms';
+import { transition } from '@/recoil/atoms';
 
 const Index = () => {
   const tl = useRef<GSAPTimeline>();

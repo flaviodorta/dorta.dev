@@ -3,6 +3,9 @@ import gsap, { Power1 } from 'gsap';
 import { useRef } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
+import Loader from './canvas/Loader';
+
+const t = gsap.timeline();
 
 const Transition = () => {
   const ref = useRef<HTMLDivElement>(null!);
@@ -13,6 +16,8 @@ const Transition = () => {
   const setIsAnimating = useSetRecoilState(homeAnimation);
 
   useIsomorphicLayoutEffect(() => {
+    let timer: NodeJS.Timeout;
+
     if (!isFirstRender.current) {
       ctx.current = gsap.context(() => {
         tl.current = gsap.timeline();
@@ -20,10 +25,20 @@ const Transition = () => {
         tl.current
           .to('.block', {
             width: '5.1%',
+            duration: 0.75,
             stagger: {
               amount: 0.75,
             },
             ease: Power1.easeInOut,
+          })
+          .to('.loader', {
+            opacity: 1,
+            duration: 1,
+          })
+          .to('.loader', {
+            duration: 0.5,
+            opacity: 0,
+            delay: 3 + 2.5,
           })
           .to('.block', {
             transformOrigin: 'left',
@@ -33,7 +48,7 @@ const Transition = () => {
             stagger: {
               amount: -0.75,
             },
-            delay: 2.5,
+            delay: 1,
             ease: Power1.easeInOut,
           })
           .call(() => {
@@ -45,6 +60,8 @@ const Transition = () => {
 
     return () => {
       isFirstRender.current = false;
+
+      clearTimeout(timer);
 
       if (ctx.current) {
         ctx.current.revert();
@@ -59,6 +76,8 @@ const Transition = () => {
           ref={ref}
           className='fixed -mt-[var(--layout-padding-xsm)] lg:-mt-[var(--layout-padding-lg)] w-screen h-screen z-[20]'
         >
+          <Loader c='loader opacity-0 text-6xl z-[100]' d={1000 + 750} />
+
           <div className='block block-1 bg-primary' />
           <div className='block block-2' />
           <div className='block block-3' />

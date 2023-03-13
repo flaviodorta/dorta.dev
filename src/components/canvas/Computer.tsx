@@ -9,7 +9,7 @@ import {
 import { isMobile } from 'react-device-detect';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import * as THREE from 'three';
-import CanvasLoader from './Loader';
+import CanvasLoader from './CanvasLoader';
 
 const Computer = ({
   isMobile,
@@ -83,12 +83,12 @@ const ComputerCanvas = ({ className }: { className?: string }) => {
         minPolarAngle={Math.PI / 2}
         enableRotate={false}
       />
-      <Suspense fallback={<CanvasLoader />}>
-        <Computer isMobile={isMobileScreen} canvasSize={canvasSize} />
-      </Suspense>
+      {/* <Suspense fallback={null}> */}
+      <Computer isMobile={isMobileScreen} canvasSize={canvasSize} />
+      {/* </Suspense> */}
 
       {/* <CameraShake yawFrequency={100} pitchFrequency={100} rollFrequency={20} /> */}
-      <Preload all />
+      {/* <Preload all /> */}
     </Canvas>
   );
 };
