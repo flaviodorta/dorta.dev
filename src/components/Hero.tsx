@@ -7,15 +7,15 @@ import { twMerge } from 'tailwind-merge';
 import { anton } from '@/pages/_app';
 import ComputerCanvas from './canvas/Computer';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { animation, homeTimeline, transition } from '@/recoil/atoms';
+import { homeAnimation, homeTimeline, transition } from '@/recoil/atoms';
 import MagneticDiv from './MagneticDiv';
 
-const Hero = ({ isAnimating }: { isAnimating: boolean }) => {
+const Hero = () => {
   const mainRef = useRef<HTMLElement>(null!);
   const ctx = useRef<ReturnType<typeof gsap.context>>();
   const tl = useRecoilValue(homeTimeline);
   const isFirstRender = useRef(true);
-  const setIsTransitioning = useSetRecoilState(transition);
+  const isAnimating = useRecoilValue(homeAnimation);
 
   useIsomorphicLayoutEffect(() => {
     if (isAnimating) {

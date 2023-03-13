@@ -7,12 +7,12 @@ import { RxTriangleUp } from 'react-icons/rx';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
-import { homeTimeline, transition } from '@/recoil/atoms';
+import { homeAnimation, homeTimeline, transition } from '@/recoil/atoms';
 import { useRecoilValue } from 'recoil';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import gsap from 'gsap';
 
-const Navbar = ({ isAnimating }: { isAnimating: boolean }) => {
+const Navbar = () => {
   const buttons = ['about', 'works', 'services', 'contact'];
   const { pathname, replace } = useRouter();
   const handleRedirect = (pathname: string) => replace(pathname);
@@ -20,6 +20,8 @@ const Navbar = ({ isAnimating }: { isAnimating: boolean }) => {
   const navRef = useRef<HTMLDivElement>(null);
   const tl = useRecoilValue(homeTimeline);
   const ctx = useRef<ReturnType<typeof gsap.context>>();
+
+  const isAnimating = useRecoilValue(homeAnimation);
 
   useIsomorphicLayoutEffect(() => {
     if (isAnimating) {

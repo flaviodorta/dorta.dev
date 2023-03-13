@@ -6,7 +6,7 @@ export const transition = atom({
   default: false,
 });
 
-export const animation = atom({
+export const homeAnimation = atom({
   key: 'animation',
   default: false,
 });

@@ -1,7 +1,7 @@
-import { transition } from '@/recoil/atoms';
+import { homeAnimation, transition } from '@/recoil/atoms';
 import gsap, { Power1 } from 'gsap';
 import { useRef } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 const Transition = () => {
@@ -10,6 +10,7 @@ const Transition = () => {
   const ctx = useRef<ReturnType<typeof gsap.context>>();
   const isFirstRender = useRef(true);
   const [isTransitioning, setIsTransitioning] = useRecoilState(transition);
+  const setIsAnimating = useSetRecoilState(homeAnimation);
 
   useIsomorphicLayoutEffect(() => {
     if (!isFirstRender.current) {
@@ -35,7 +36,10 @@ const Transition = () => {
             delay: 2.5,
             ease: Power1.easeInOut,
           })
-          .call(() => setIsTransitioning(false));
+          .call(() => {
+            setIsTransitioning(false);
+            setIsAnimating(true);
+          });
       }, ref);
     }
 
