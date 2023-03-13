@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import Logo from './Logo';
@@ -7,21 +7,55 @@ import { RxTriangleUp } from 'react-icons/rx';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
+import { homeTimeline, transition } from '@/recoil/atoms';
+import { useRecoilValue } from 'recoil';
+import { useIsomorphicLayoutEffect } from 'usehooks-ts';
+import gsap from 'gsap';
 
-const Navbar = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
+const Navbar = ({ isAnimating }: { isAnimating: boolean }) => {
   const buttons = ['about', 'works', 'services', 'contact'];
   const { pathname, replace } = useRouter();
   const handleRedirect = (pathname: string) => replace(pathname);
-  const refs = useRef<HTMLDivElement[]>([]);
+
   const navRef = useRef<HTMLDivElement>(null);
-  const logoRef = useRef<HTMLDivElement>(null);
+  const tl = useRecoilValue(homeTimeline);
+  const ctx = useRef<ReturnType<typeof gsap.context>>();
+
+  useIsomorphicLayoutEffect(() => {
+    if (isAnimating) {
+      ctx.current = gsap.context(() => {
+        tl.to(
+          '.nav-link',
+          {
+            top: 0,
+            opacity: 1,
+            stagger: {
+              amount: 0.67,
+            },
+          },
+          '-=0.8'
+        ).to(
+          '.logo',
+          {
+            opacity: 1,
+            duration: 1.2,
+          },
+          '-=0.6'
+        );
+      }, navRef);
+    }
+
+    return () => {
+      if (ctx.current) ctx.current.revert();
+    };
+  }, [isAnimating]);
 
   return (
     <div
       ref={navRef}
       className='relative h-[var(--navbar-height)] w-full flex items-center justify-between'
     >
-      <div ref={logoRef}>
+      <div className='logo opacity-0'>
         <Logo />
       </div>
 
@@ -41,8 +75,7 @@ const Navbar = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
             >
               <span
                 className={clsx([
-                  'uppercase tracking-wide outline-none',
-                  // worksSans.className
+                  'nav-link relative -top-[40px] opacity-0 uppercase tracking-wide outline-none',
                 ])}
               >
                 {button}
@@ -63,8 +96,6 @@ const Navbar = React.forwardRef<HTMLDivElement, {}>((props, ref) => {
       </ul>
     </div>
   );
-});
-
-Navbar.displayName = 'Navbar';
+};
 
 export default Navbar;

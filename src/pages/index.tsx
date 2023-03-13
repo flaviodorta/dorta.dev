@@ -8,13 +8,13 @@ import clsx from 'clsx';
 import { anton } from './_app';
 import Transition from '@/components/Transition';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { transition } from '@/recoil/atoms';
+import { animation as animating, transition } from '@/recoil/atoms';
 
 const Index = () => {
   const tl = useRef<GSAPTimeline>();
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null!);
-  const [isTransitioning, setIsTransitioning] = useRecoilState(transition);
+  const setIsTransitioning = useSetRecoilState(transition);
 
   useIsomorphicLayoutEffect(() => {
     const startTransitionTimer = setTimeout(() => {
@@ -23,18 +23,18 @@ const Index = () => {
 
     const replaceRouteTimer = setTimeout(() => {
       router.replace('/home');
-    }, 5000);
+    }, 3500 + 750);
 
-    router.events.on('routeChangeComplete', () =>
-      setTimeout(() => setIsTransitioning(false), 7500)
-    );
+    // router.events.on('routeChangeStart', () =>
+    //   setTimeout(() => setIsTransitioning(true), 750 + 1500 + 750)
+    // );
 
     return () => {
       clearTimeout(replaceRouteTimer);
       clearTimeout(startTransitionTimer);
-      router.events.off('routeChangeComplete', () =>
-        setTimeout(() => setIsTransitioning(false), 7500)
-      );
+      // router.events.off('routeChangeStart', () =>
+      //   setTimeout(() => setIsTransitioning(false), 750 + 1500 + 750)
+      // );
     };
   }, []);
 

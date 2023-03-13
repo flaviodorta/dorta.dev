@@ -1,20 +1,19 @@
 import { transition } from '@/recoil/atoms';
 import gsap, { Power1 } from 'gsap';
 import { useRef } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
-import { Html } from '@react-three/drei';
 
 const Transition = () => {
   const ref = useRef<HTMLDivElement>(null!);
   const tl = useRef<GSAPTimeline>();
+  const ctx = useRef<ReturnType<typeof gsap.context>>();
   const isFirstRender = useRef(true);
-  const isTransitioning = useRecoilValue(transition);
+  const [isTransitioning, setIsTransitioning] = useRecoilState(transition);
 
   useIsomorphicLayoutEffect(() => {
-    console.log(isTransitioning, isFirstRender.current);
-    if (!isFirstRender.current && isTransitioning) {
-      const ctx = gsap.context(() => {
+    if (!isFirstRender.current) {
+      ctx.current = gsap.context(() => {
         tl.current = gsap.timeline();
 
         tl.current
@@ -37,12 +36,14 @@ const Transition = () => {
             ease: Power1.easeInOut,
           });
       }, ref);
-
-      return () => ctx.revert();
     }
 
     return () => {
       isFirstRender.current = false;
+
+      if (ctx.current) {
+        ctx.current.revert();
+      }
     };
   }, [isTransitioning]);
 
