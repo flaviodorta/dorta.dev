@@ -85,7 +85,7 @@ const ComputerCanvas = () => {
       {/* </Suspense> */}
 
       {/* <CameraShake yawFrequency={100} pitchFrequency={100} rollFrequency={20} /> */}
-      {/* <Preload all /> */}
+      <Preload all />
     </Canvas>
   );
 };
