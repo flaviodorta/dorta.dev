@@ -8,6 +8,7 @@ import { anton } from '@/pages/_app';
 import ComputerCanvas from './canvas/Computer';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { animation, homeTimeline, transition } from '@/recoil/atoms';
+import MagneticDiv from './MagneticDiv';
 
 const Hero = ({ isAnimating }: { isAnimating: boolean }) => {
   const mainRef = useRef<HTMLElement>(null!);
@@ -20,8 +21,6 @@ const Hero = ({ isAnimating }: { isAnimating: boolean }) => {
     if (isAnimating) {
       ctx.current = gsap.context(() => {
         tl.current = gsap.timeline();
-
-        setIsTransitioning(false);
 
         gsap.to('.scroll', {
           yoyo: true,
@@ -109,13 +108,23 @@ const Hero = ({ isAnimating }: { isAnimating: boolean }) => {
           </div>
         </div>
 
-        <div className='mt-10 w-full flex justify-center items-center'>
+        <MagneticDiv
+          scale={0.2}
+          tollerance={0.03}
+          speed={0.1}
+          className='mt-10 p-4 w-fit mx-auto flex justify-center items-center'
+        >
           <a href='#about'>
-            <div className='w-[35px] h-[64px] rounded-3xl border-4 border-gray-300 flex justify-center items-center p-2'>
+            <MagneticDiv
+              scale={0.5}
+              tollerance={0.23}
+              speed={0.2}
+              className='w-[35px]  h-[64px] rounded-3xl border-4 border-gray-300 flex justify-center items-center p-2'
+            >
               <div className='scroll relative top-[12px] w-3 h-3 rounded-full bg-gray-300'></div>
-            </div>
+            </MagneticDiv>
           </a>
-        </div>
+        </MagneticDiv>
       </div>
     </section>
   );

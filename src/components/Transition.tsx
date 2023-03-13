@@ -34,7 +34,8 @@ const Transition = () => {
             },
             delay: 2.5,
             ease: Power1.easeInOut,
-          });
+          })
+          .call(() => setIsTransitioning(false));
       }, ref);
     }
 
