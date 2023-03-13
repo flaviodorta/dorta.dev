@@ -45,7 +45,7 @@ const Computer = ({
   );
 };
 
-const ComputerCanvas = ({ className }: { className?: string }) => {
+const ComputerCanvas = () => {
   const [isMobileScreen, setIsMobileScreen] = useState(false || isMobile);
   const [canvasSize, setCanvasSize] = useState([0, 0]);
 
@@ -72,10 +72,7 @@ const ComputerCanvas = ({ className }: { className?: string }) => {
       dpr={[1, 2]}
       camera={{ position: [25, 3, 5], fov: 25 }}
       gl={{ preserveDrawingBuffer: true }}
-      className={className}
-      onCreated={({ gl }) =>
-        setCanvasSize([gl.domElement.clientWidth, gl.domElement.clientHeight])
-      }
+      className='absolute flex-grow h-full flex-center'
     >
       <OrbitControls
         enableZoom={false}
