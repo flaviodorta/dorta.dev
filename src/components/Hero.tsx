@@ -70,8 +70,10 @@ const Hero = () => {
             '-=0.4'
           )
           .to('.scroll-container', {
+            // x: 0,
             opacity: 1,
-            ease: Power1.easeIn,
+            ease: Power1.easeInOut,
+            duration: 1,
           })
           .to('.scroll', {
             y: 10,

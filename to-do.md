@@ -11,6 +11,7 @@
 
 # to do
 
+- add galaxy background
 - add first load page when load home first
 - add rgb effect on scroll
 - add smooth scroll gsap

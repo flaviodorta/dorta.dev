@@ -1,4 +1,5 @@
 import { anton } from '@/pages/_app';
+import { timeout } from '@/utils/helper-functions';
 import clsx from 'clsx';
 import gsap, { Power1, Power2 } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
@@ -41,10 +42,6 @@ const Loader = ({ c, d }: { c?: string; d: number }) => {
   }, []);
 
   useEffect(() => {
-    const timeout = async (cb: () => void, delay: number) => {
-      await new Promise(() => setTimeout(cb, delay));
-    };
-
     if (isFirstRender) {
       timeout(() => setIsFirstRender(false), d + 4000);
     } else if (!isFirstRender && count < 100) {
