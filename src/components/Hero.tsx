@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import clsx from 'clsx';
-import gsap, { Power1, Power2 } from 'gsap';
+import gsap, { Linear, Power1, Power2 } from 'gsap';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import { twMerge } from 'tailwind-merge';
 import { anton } from '@/pages/_app';
@@ -16,6 +16,32 @@ const Hero = () => {
   const tl = useRecoilValue(homeTimeline);
   const isFirstRender = useRef(true);
   const isAnimating = useRecoilValue(homeAnimation);
+
+  const enterHoverScrollLabelPulse = () => {
+    // if (ctx.current)
+    //   gsap.context(() => {
+    //     gsap.to('.scroll-label', {
+    //       yoyo: true,
+    //       duration: 1,
+    //       repeat: -1,
+    //       opacity: 1,
+    //       ease: Linear.easeInOut,
+    //     });
+    //   }, mainRef);
+  };
+
+  const leaveHoverScrollLabelPulse = () => {
+    // if (ctx.current)
+    //   gsap.context(() => {
+    //     gsap.to('.scroll-label', {
+    //       // yoyo: true,
+    //       duration: 1,
+    //       // repeat: -1,
+    //       opacity: 0,
+    //       ease: Linear.easeInOut,
+    //     });
+    //   }, mainRef);
+  };
 
   useIsomorphicLayoutEffect(() => {
     if (isAnimating) {
@@ -43,8 +69,8 @@ const Hero = () => {
             },
             '-=0.4'
           )
-          .from('.scroll', {
-            opacity: 0,
+          .to('.scroll-container', {
+            opacity: 1,
             ease: Power1.easeIn,
           })
           .to('.scroll', {
@@ -72,7 +98,6 @@ const Hero = () => {
     >
       <div
         className={twMerge([
-          anton.className,
           'absolute -bottom-10 w-full bg-none bg-transparent flex flex-col items-center justify-between uppercase',
           'md:flex-row',
         ])}
@@ -80,6 +105,7 @@ const Hero = () => {
         <div
           className={twMerge([
             'bg-transparent flex flex-col justify-end mr-auto ml-0',
+            anton.className,
           ])}
         >
           <div
@@ -109,20 +135,36 @@ const Hero = () => {
         </div>
 
         <MagneticDiv
-          scale={0.2}
-          tollerance={0.03}
-          speed={0.1}
-          className='mt-10 p-4 w-fit mx-auto flex justify-center items-center'
+          scale={0.5}
+          tollerance={0.3}
+          speed={0.2}
+          // onMouseEnter={enterHoverScrollLabelPulse}
+          // onMouseLeave={leaveHoverScrollLabelPulse}
+          className='scroll-container relative group mt-10 p-10 w-fit mx-auto flex justify-center items-center opacity-0'
         >
           <a href='#about'>
-            <MagneticDiv
-              scale={0.5}
-              tollerance={0.23}
-              speed={0.2}
-              className='w-[35px]  h-[64px] rounded-3xl border-4 border-gray-300 flex justify-center items-center p-2'
+            <div
+              className={twMerge([
+                'w-[35px] h-[64px] rounded-3xl border-4 border-gray-300 flex justify-center items-center p-2',
+                'group-hover:animate-pulse group-hover:ease-in-out ease-in-out group-hover:duration-100 duration-100',
+              ])}
             >
-              <div className='scroll relative top-[12px] w-3 h-3 rounded-full bg-gray-300'></div>
-            </MagneticDiv>
+              <div
+                className={twMerge(
+                  'scroll relative top-[12px] w-3 h-3 rounded-full bg-gray-300',
+                  'group-hover:bg-primary group-hover:animate-pulse'
+                )}
+              ></div>
+              {/* 
+              <span
+                className={twMerge(
+                  'scroll-label absolute uppercase opacity-0 text-primary top-1/2 -translate-y-1/2 left-16',
+                  'transition-all ease-in-out duration-75 group-hover:left-14 group-hover:pulse'
+                )}
+              >
+                Scroll
+              </span> */}
+            </div>
           </a>
         </MagneticDiv>
       </div>

@@ -9,15 +9,8 @@ import {
 import { isMobile } from 'react-device-detect';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import * as THREE from 'three';
-import CanvasLoader from './CanvasLoader';
 
-const Computer = ({
-  isMobile,
-  canvasSize,
-}: {
-  isMobile: boolean;
-  canvasSize: number[];
-}) => {
+const Computer = ({ isMobile }: { isMobile: boolean }) => {
   const computer = useGLTF('./desktop_pc/scene.gltf');
   const computerRef = useRef<THREE.Object3D>(null!);
 
@@ -81,7 +74,7 @@ const ComputerCanvas = () => {
         enableRotate={false}
       />
       {/* <Suspense fallback={null}> */}
-      <Computer isMobile={isMobileScreen} canvasSize={canvasSize} />
+      <Computer isMobile={isMobileScreen} />
       {/* </Suspense> */}
 
       {/* <CameraShake yawFrequency={100} pitchFrequency={100} rollFrequency={20} /> */}

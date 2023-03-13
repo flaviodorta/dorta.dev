@@ -7,10 +7,11 @@
 - add about section
 - add computer three.js in contact section
 - fix progress intro
+- add pulse animation on hover to mouse scroll indicator
 
 # to do
 
-- add label on hover to scroll
+- add first load page when load home first
 - add rgb effect on scroll
 - add smooth scroll gsap
 - add scrolling time line
