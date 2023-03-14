@@ -73,7 +73,7 @@ const Loader = ({ c, d }: { c?: string; d: number }) => {
     >
       <h1
         className={clsx([
-          'loader flex relative bottom-20 items-center',
+          'loader flex relative bottom-40 items-center',
           anton.className,
         ])}
       >

@@ -23,10 +23,6 @@ const Transition = () => {
     if (!isFirstRender.current) {
       ctx.current = gsap.context(() => {
         tl.current = gsap.timeline();
-        timeout(() => {
-          setIsLoader(true);
-          console.log('cuzinho');
-        }, 3750);
 
         tl.current
           .to('.block', {
@@ -36,6 +32,13 @@ const Transition = () => {
             },
             ease: Power1.easeInOut,
           })
+          .call(
+            () => {
+              setIsLoader(true);
+            },
+            ['param'],
+            0.75
+          )
           .to('.block', {
             transformOrigin: 'left',
           })
@@ -75,7 +78,6 @@ const Transition = () => {
           ref={ref}
           className='fixed -ml-[var(--layout-padding-xsm)] lg:-ml-[var(--layout-padding-lg)] -mt-[var(--layout-padding-xsm)] lg:-mt-[var(--layout-padding-lg)] w-screen h-screen z-[20]'
         >
-          {isLoader && <Loader d={750} />}
           <div className='block block-1' />
           <div className='block block-2' />
           <div className='block block-3' />

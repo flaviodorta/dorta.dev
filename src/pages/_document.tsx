@@ -1,4 +1,6 @@
+import Loader, { loader } from '@/components/canvas/Loader';
 import { Html, Head, Main, NextScript } from 'next/document';
+import { useRecoilState } from 'recoil';
 
 const Document = () => {
   return (
