@@ -19,11 +19,11 @@ const Index = () => {
   useIsomorphicLayoutEffect(() => {
     const startTransitionTimer = setTimeout(() => {
       setIsTransitioning(true);
-    }, 3500);
+    }, 3000);
 
     const replaceRouteTimer = setTimeout(() => {
       router.replace('/home');
-    }, 3500 + 750);
+    }, 3000 + 750);
 
     // router.events.on('routeChangeStart', () =>
     //   setTimeout(() => setIsTransitioning(true), 750 + 1500 + 750)

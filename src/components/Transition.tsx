@@ -1,9 +1,10 @@
 import { homeAnimation, transition } from '@/recoil/atoms';
+import { timeout } from '@/utils/help-functions';
 import gsap, { Power1 } from 'gsap';
 import { useRef } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
-import Loader from './canvas/Loader';
+import Loader, { loader } from './canvas/Loader';
 
 const t = gsap.timeline();
 
@@ -14,6 +15,7 @@ const Transition = () => {
   const isFirstRender = useRef(true);
   const [isTransitioning, setIsTransitioning] = useRecoilState(transition);
   const setIsAnimating = useSetRecoilState(homeAnimation);
+  const [isLoader, setIsLoader] = useRecoilState(loader);
 
   useIsomorphicLayoutEffect(() => {
     let timer: NodeJS.Timeout;
@@ -21,11 +23,15 @@ const Transition = () => {
     if (!isFirstRender.current) {
       ctx.current = gsap.context(() => {
         tl.current = gsap.timeline();
+        timeout(() => {
+          setIsLoader(true);
+          console.log('cuzinho');
+        }, 3750);
 
         tl.current
           .to('.block', {
             width: '5.1%',
-            duration: 0.75,
+            // duration: 0.75,
             stagger: {
               amount: 0.75,
             },
@@ -43,7 +49,7 @@ const Transition = () => {
               },
               ease: Power1.easeInOut,
             },
-            '+=13.5'
+            '+=5.5'
           )
           .call(() => {
             setIsTransitioning(false);
@@ -68,11 +74,11 @@ const Transition = () => {
       {isTransitioning && (
         <div
           ref={ref}
-          className='fixed -mt-[var(--layout-padding-xsm)] lg:-mt-[var(--layout-padding-lg)] w-screen h-screen z-[20]'
+          className='fixed -ml-[var(--layout-padding-xsm)] lg:-ml-[var(--layout-padding-lg)] -mt-[var(--layout-padding-xsm)] lg:-mt-[var(--layout-padding-lg)] w-screen h-screen z-[20]'
         >
-          <Loader d={1000 + 750} />
-
-          <div className='block block-1 bg-primary' />
+          {isLoader && <Loader d={750} />}
+          {/* <Loader d={750} /> */}
+          <div className='block block-1' />
           <div className='block block-2' />
           <div className='block block-3' />
           <div className='block block-4' />

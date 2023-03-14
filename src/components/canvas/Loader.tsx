@@ -1,40 +1,39 @@
 import { anton } from '@/pages/_app';
-import { timeout } from '@/utils/helper-functions';
+import { timeout } from '@/utils/help-functions';
 import clsx from 'clsx';
 import gsap, { Power1, Power2 } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
+import { atom, useRecoilState, useResetRecoilState } from 'recoil';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
+
+export const loader = atom({
+  key: 'loader',
+  default: false,
+});
 
 const Loader = ({ c, d }: { c?: string; d: number }) => {
   const [count, setCount] = useState(0);
   const [isFirstRender, setIsFirstRender] = useState(true);
   const ref = useRef<HTMLDivElement>(null!);
+  const setIsLoader = useResetRecoilState(loader);
+  const [isLoadingCompleted, setIsLoadingCompleted] = useState(false);
+  const tl = useRef(gsap.timeline());
 
   useIsomorphicLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap
-        .timeline()
+      tl.current
         .to('.loader', {
-          delay: 2.75,
+          // delay: 1.5,
           display: 'flex',
         })
         .to('.effect', {
           height: 0,
-          duration: 1.5,
+          duration: 1.1,
           ease: Power2.easeInOut,
         })
         .to('.effect', {
           bottom: 0,
           transformOrigin: 'bottom',
-        })
-        .to('.effect', {
-          duration: 1.5,
-          height: '100%',
-          delay: 3 + 2.5 + 2,
-          ease: Power2.easeInOut,
-        })
-        .to(ref.current, {
-          display: 'none',
         });
     }, ref);
 
@@ -42,12 +41,31 @@ const Loader = ({ c, d }: { c?: string; d: number }) => {
   }, []);
 
   useEffect(() => {
-    if (isFirstRender) {
-      timeout(() => setIsFirstRender(false), d + 4000);
-    } else if (!isFirstRender && count < 100) {
-      timeout(() => setCount((c) => c + 10), 300);
+    if (isLoadingCompleted) {
+      tl.current
+        .to(
+          '.effect',
+          {
+            duration: 1.1,
+            height: '100%',
+            ease: Power2.easeInOut,
+          },
+          '+=0.5'
+        )
+        .call(() => {
+          setIsLoader(false);
+        });
     }
-  }, [count, d, isFirstRender]);
+
+    if (isFirstRender) {
+      timeout(() => setIsFirstRender(false), d + 1100);
+    } else if (!isFirstRender && count < 100) {
+      timeout(() => {
+        setCount((c) => c + 1);
+        if (count === 99) setIsLoadingCompleted(true);
+      }, 15);
+    }
+  }, [count, d, isFirstRender, isLoadingCompleted, setIsLoader]);
 
   return (
     <div
@@ -56,7 +74,7 @@ const Loader = ({ c, d }: { c?: string; d: number }) => {
     >
       <h1
         className={clsx([
-          'loader hidden relative bottom-20 items-center',
+          'loader flex relative bottom-20 items-center',
           anton.className,
         ])}
       >
@@ -65,7 +83,7 @@ const Loader = ({ c, d }: { c?: string; d: number }) => {
             {count}%
           </span>
 
-          <span className='effect absolute top0 left-0 bg-primary w-full h-full origin-top' />
+          <span className='effect absolute left-0 bg-primary w-full h-full origin-top' />
         </div>
       </h1>
     </div>

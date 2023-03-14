@@ -60,11 +60,11 @@ const ComputerCanvas = () => {
 
   return (
     <Canvas
-      frameloop='demand'
-      shadows
+      // frameloop='demand'
+      // shadows
       dpr={[1, 2]}
       camera={{ position: [25, 3, 5], fov: 25 }}
-      gl={{ preserveDrawingBuffer: true }}
+      // gl={{ preserveDrawingBuffer: true }}
       className='absolute flex-grow h-full flex-center'
     >
       <OrbitControls
