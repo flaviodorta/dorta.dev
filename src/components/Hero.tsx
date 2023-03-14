@@ -86,9 +86,9 @@ const Hero = () => {
               'sm:text-[7vw]',
             ])}
           >
-            <h1 className='slogan relative top-[400px] leading-none tracking-wide'>
+            <div className='slogan relative top-[400px] leading-none tracking-wide'>
               Creative
-            </h1>
+            </div>
           </div>
 
           <div
@@ -97,12 +97,12 @@ const Hero = () => {
               'lg:text-[14vw]',
             ])}
           >
-            <h1 className='slogan relative top-[500px] leading-none tracking-wide'>
+            <div className='slogan relative top-[500px] leading-none tracking-wide'>
               Developer
               <span className='overflow-hidden text-primary' id='char2'>
                 .
               </span>
-            </h1>
+            </div>
           </div>
         </div>
 

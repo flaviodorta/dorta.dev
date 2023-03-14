@@ -37,7 +37,7 @@ const Computer = ({ isMobile }: { isMobile: boolean }) => {
         ref={computerRef}
         object={computer.scene}
         scale={isMobile ? 0.75 : 0.75}
-        position={isMobile ? [-30, 0, -7] : [5.5, -0.3, 0.1]}
+        position={isMobile ? [-30, 3, -7] : [5.5, -0.3, 0.1]}
         rotation={[-0.01, -0.1, -0.1]}
       />
     </mesh>
@@ -66,11 +66,11 @@ const ComputerCanvas = () => {
 
   return (
     <Canvas
-      // frameloop='demand'
-      // shadows
+      frameloop='demand'
+      shadows
       dpr={[1, 2]}
       camera={{ position: [25, 3, 5], fov: 25 }}
-      // gl={{ preserveDrawingBuffer: true }}
+      gl={{ preserveDrawingBuffer: true }}
       className='absolute flex-grow h-full flex-center'
     >
       <OrbitControls
@@ -79,9 +79,9 @@ const ComputerCanvas = () => {
         minPolarAngle={Math.PI / 2}
         enableRotate={false}
       />
-      {/* <Suspense fallback={null}> */}
-      <Computer isMobile={isMobileScreen} />
-      {/* </Suspense> */}
+      <Suspense fallback={null}>
+        <Computer isMobile={isMobileScreen} />
+      </Suspense>
 
       {/* <CameraShake yawFrequency={100} pitchFrequency={100} rollFrequency={20} /> */}
       <Preload all />

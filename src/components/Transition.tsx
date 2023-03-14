@@ -1,5 +1,7 @@
+import { anton } from '@/pages/_app';
 import { homeAnimation, transition } from '@/recoil/atoms';
 import { timeout } from '@/utils/help-functions';
+import clsx from 'clsx';
 import gsap, { Power1 } from 'gsap';
 import { useRef } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -13,8 +15,9 @@ const Transition = () => {
   const tl = useRef<GSAPTimeline>();
   const ctx = useRef<ReturnType<typeof gsap.context>>();
   const isFirstRender = useRef(true);
-  const [isTransitioning, setIsTransitioning] = useRecoilState(transition);
-  const setIsAnimating = useSetRecoilState(homeAnimation);
+  const [isIntroTransitioning, setIsIntroTransitioning] =
+    useRecoilState(transition);
+  const setIsHomeAnimating = useSetRecoilState(homeAnimation);
   const [isLoader, setIsLoader] = useRecoilState(loader);
 
   useIsomorphicLayoutEffect(() => {
@@ -26,7 +29,7 @@ const Transition = () => {
   useIsomorphicLayoutEffect(() => {
     let timer: NodeJS.Timeout;
 
-    if (!isFirstRender.current) {
+    if (!isFirstRender.current && isIntroTransitioning) {
       ctx.current = gsap.context(() => {
         tl.current = gsap.timeline();
 
@@ -50,11 +53,11 @@ const Transition = () => {
               },
               ease: Power1.easeInOut,
             },
-            '+=5.5'
+            '+=6.5'
           )
           .call(() => {
-            setIsTransitioning(false);
-            setIsAnimating(true);
+            setIsIntroTransitioning(false);
+            setIsHomeAnimating(true);
             setIsLoader(false);
           });
       }, ref);
@@ -69,11 +72,25 @@ const Transition = () => {
         ctx.current.revert();
       }
     };
-  }, [isTransitioning]);
+  }, [isIntroTransitioning]);
 
   return (
     <>
-      {isTransitioning && (
+      {/* <div ref={ref} className='w-full h-full flex justify-center'>
+        <h1
+          id='logo'
+          className={clsx([
+            'uppercase relative bottom-20 tracking-wide flex items-center text-xl sm:text-4xl opacity-0',
+            anton.className,
+          ])}
+        >
+          <span className='text-primary text-2xl sm:text-5xl'>{'{'}</span>Dorta
+          <span className='text-primary'>{'.'}</span>dev
+          <span className='text-primary text-2xl sm:text-5xl'>{'}'}</span>
+        </h1>
+      </div> */}
+
+      {isIntroTransitioning && (
         <div
           ref={ref}
           className='fixed -ml-[var(--layout-padding-xsm)] lg:-ml-[var(--layout-padding-lg)] -mt-[var(--layout-padding-xsm)] lg:-mt-[var(--layout-padding-lg)] w-screen h-screen z-[20]'

@@ -3,16 +3,25 @@ import Navbar from '@/components/Navbar';
 import { twMerge } from 'tailwind-merge';
 import Hero from '@/components/Hero';
 import Loader, { loader } from '@/components/canvas/Loader';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { shouldLoadComputer } from '@/components/canvas/Computer';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import dynamic from 'next/dynamic';
 import { DynamicComputerCanvas } from './index';
+import { transition } from '@/recoil/atoms';
+import { timeout } from '@/utils/help-functions';
 
 const Home = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const [isLoader, setIsLoader] = useRecoilState(loader);
+  const isLoader = useRecoilValue(loader);
   const setShouldLoadComputer = useSetRecoilState(shouldLoadComputer);
+  const setIsTransitioning = useSetRecoilState(transition);
+
+  useIsomorphicLayoutEffect(() => {
+    timeout(() => {
+      setIsTransitioning(true);
+    }, 6000);
+  }, []);
 
   useEffect(() => {
     setIsMounted(true);

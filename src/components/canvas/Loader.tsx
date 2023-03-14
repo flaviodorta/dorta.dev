@@ -78,7 +78,10 @@ const Loader = ({ c, d }: { c?: string; d: number }) => {
   return (
     <div
       ref={ref}
-      className={clsx(['fixed w-full h-full flex justify-center z-[100]', c])}
+      className={clsx([
+        'fixed -ml-[var(layout-padding-xsm)] lg:-ml-[var(layout-padding-lg)] w-full h-full flex justify-center z-[100]',
+        c,
+      ])}
     >
       <h1
         className={clsx([
