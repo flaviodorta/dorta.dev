@@ -65,7 +65,7 @@ const Loader = ({ c, d }: { c?: string; d: number }) => {
       }, 15);
     }
   }, [count, d, isFirstRender, isLoadingCompleted, setIsLoader]);
-
+  //s
   return (
     <div
       ref={ref}
