@@ -6,6 +6,11 @@ import clsx from 'clsx';
 import { anton } from './_app';
 import { useSetRecoilState } from 'recoil';
 import { transition } from '@/recoil/atoms';
+import dynamic from 'next/dynamic';
+
+export const DynamicComputerCanvas = dynamic(
+  () => import('@/components/canvas/Computer')
+);
 
 const Index = () => {
   const tl = useRef<GSAPTimeline>();
@@ -16,11 +21,11 @@ const Index = () => {
   useIsomorphicLayoutEffect(() => {
     const startTransitionTimer = setTimeout(() => {
       setIsTransitioning(true);
-    }, 3000);
+    }, 6000);
 
     const replaceRouteTimer = setTimeout(() => {
       router.replace('/home');
-    }, 3000 + 750);
+    }, 6000 + 750);
 
     return () => {
       clearTimeout(replaceRouteTimer);

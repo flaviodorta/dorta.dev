@@ -18,6 +18,12 @@ const Transition = () => {
   const [isLoader, setIsLoader] = useRecoilState(loader);
 
   useIsomorphicLayoutEffect(() => {
+    timeout(() => setIsLoader(true), 750);
+
+    return () => setIsLoader(false);
+  }, []);
+
+  useIsomorphicLayoutEffect(() => {
     let timer: NodeJS.Timeout;
 
     if (!isFirstRender.current) {
@@ -32,13 +38,6 @@ const Transition = () => {
             },
             ease: Power1.easeInOut,
           })
-          .call(
-            () => {
-              setIsLoader(true);
-            },
-            ['param'],
-            0.75
-          )
           .to('.block', {
             transformOrigin: 'left',
           })
@@ -56,6 +55,7 @@ const Transition = () => {
           .call(() => {
             setIsTransitioning(false);
             setIsAnimating(true);
+            setIsLoader(false);
           });
       }, ref);
     }

@@ -1,10 +1,11 @@
 import { anton } from '@/pages/_app';
 import { timeout } from '@/utils/help-functions';
 import clsx from 'clsx';
-import gsap, { Power2 } from 'gsap';
+import gsap, { Power2, Power4 } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
-import { atom, useSetRecoilState } from 'recoil';
+import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
+import { shouldLoadComputer as shouldLoadComputer } from './Computer';
 
 export const loader = atom({
   key: 'loader',
@@ -18,6 +19,7 @@ const Loader = ({ c, d }: { c?: string; d: number }) => {
   const setIsLoader = useSetRecoilState(loader);
   const [isLoadingCompleted, setIsLoadingCompleted] = useState(false);
   const tl = useRef(gsap.timeline());
+  const setShouldLoadComputer = useSetRecoilState(shouldLoadComputer);
 
   useIsomorphicLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -25,10 +27,17 @@ const Loader = ({ c, d }: { c?: string; d: number }) => {
         .to('.loader', {
           display: 'flex',
         })
-        .to('.effect', {
-          height: 0,
-          duration: 1.1,
-          ease: Power2.easeInOut,
+        .to(
+          '.effect',
+          {
+            height: 0,
+            duration: 1.1,
+            ease: Power4.easeInOut,
+          },
+          '+=0.5'
+        )
+        .call(() => {
+          setShouldLoadComputer(true);
         })
         .to('.effect', {
           bottom: 0,
@@ -49,7 +58,7 @@ const Loader = ({ c, d }: { c?: string; d: number }) => {
             height: '100%',
             ease: Power2.easeInOut,
           },
-          '+=0.5'
+          '+=1.5'
         )
         .call(() => {
           setIsLoader(false);

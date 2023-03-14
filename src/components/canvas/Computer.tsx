@@ -9,6 +9,12 @@ import {
 import { isMobile } from 'react-device-detect';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import * as THREE from 'three';
+import { atom } from 'recoil';
+
+export const shouldLoadComputer = atom({
+  key: 'should-load-computer',
+  default: false,
+});
 
 const Computer = ({ isMobile }: { isMobile: boolean }) => {
   const computer = useGLTF('./desktop_pc/scene.gltf');
