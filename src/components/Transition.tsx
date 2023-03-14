@@ -53,7 +53,7 @@ const Transition = () => {
               },
               ease: Power1.easeInOut,
             },
-            '+=6.5'
+            '+=6'
           )
           .call(() => {
             setIsIntroTransitioning(false);
