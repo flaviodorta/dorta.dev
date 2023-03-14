@@ -1,9 +1,9 @@
 import { anton } from '@/pages/_app';
 import { timeout } from '@/utils/help-functions';
 import clsx from 'clsx';
-import gsap, { Power1, Power2 } from 'gsap';
+import gsap, { Power2 } from 'gsap';
 import { useEffect, useRef, useState } from 'react';
-import { atom, useRecoilState, useResetRecoilState } from 'recoil';
+import { atom, useSetRecoilState } from 'recoil';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 
 export const loader = atom({
@@ -15,7 +15,7 @@ const Loader = ({ c, d }: { c?: string; d: number }) => {
   const [count, setCount] = useState(0);
   const [isFirstRender, setIsFirstRender] = useState(true);
   const ref = useRef<HTMLDivElement>(null!);
-  const setIsLoader = useResetRecoilState(loader);
+  const setIsLoader = useSetRecoilState(loader);
   const [isLoadingCompleted, setIsLoadingCompleted] = useState(false);
   const tl = useRef(gsap.timeline());
 
@@ -23,7 +23,6 @@ const Loader = ({ c, d }: { c?: string; d: number }) => {
     const ctx = gsap.context(() => {
       tl.current
         .to('.loader', {
-          // delay: 1.5,
           display: 'flex',
         })
         .to('.effect', {

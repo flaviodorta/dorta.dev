@@ -1,13 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Layout } from '@/components/Layout';
+import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
-import Logo from '@/components/Logo';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { anton } from './_app';
-import Transition from '@/components/Transition';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { transition } from '@/recoil/atoms';
 
 const Index = () => {
@@ -25,16 +22,9 @@ const Index = () => {
       router.replace('/home');
     }, 3000 + 750);
 
-    // router.events.on('routeChangeStart', () =>
-    //   setTimeout(() => setIsTransitioning(true), 750 + 1500 + 750)
-    // );
-
     return () => {
       clearTimeout(replaceRouteTimer);
       clearTimeout(startTransitionTimer);
-      // router.events.off('routeChangeStart', () =>
-      //   setTimeout(() => setIsTransitioning(false), 750 + 1500 + 750)
-      // );
     };
   }, []);
 

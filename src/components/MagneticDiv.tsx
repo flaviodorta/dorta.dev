@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import gsap, { Elastic, Power4 } from 'gsap';
 import React, { useRef } from 'react';
 import { twMerge } from 'tailwind-merge';

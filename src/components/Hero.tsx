@@ -1,13 +1,10 @@
-import React, { useRef, useState } from 'react';
-import Navbar from '@/components/Navbar';
-import clsx from 'clsx';
-import gsap, { Linear, Power1, Power2 } from 'gsap';
+import React, { useRef } from 'react';
+import gsap, { Power1, Power2 } from 'gsap';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import { twMerge } from 'tailwind-merge';
 import { anton } from '@/pages/_app';
-import ComputerCanvas from './canvas/Computer';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { homeAnimation, homeTimeline, transition } from '@/recoil/atoms';
+import { useRecoilValue } from 'recoil';
+import { homeAnimation, homeTimeline } from '@/recoil/atoms';
 import MagneticDiv from './MagneticDiv';
 
 const Hero = () => {
@@ -16,32 +13,6 @@ const Hero = () => {
   const tl = useRecoilValue(homeTimeline);
   const isFirstRender = useRef(true);
   const isAnimating = useRecoilValue(homeAnimation);
-
-  const enterHoverScrollLabelPulse = () => {
-    // if (ctx.current)
-    //   gsap.context(() => {
-    //     gsap.to('.scroll-label', {
-    //       yoyo: true,
-    //       duration: 1,
-    //       repeat: -1,
-    //       opacity: 1,
-    //       ease: Linear.easeInOut,
-    //     });
-    //   }, mainRef);
-  };
-
-  const leaveHoverScrollLabelPulse = () => {
-    // if (ctx.current)
-    //   gsap.context(() => {
-    //     gsap.to('.scroll-label', {
-    //       // yoyo: true,
-    //       duration: 1,
-    //       // repeat: -1,
-    //       opacity: 0,
-    //       ease: Linear.easeInOut,
-    //     });
-    //   }, mainRef);
-  };
 
   useIsomorphicLayoutEffect(() => {
     if (isAnimating) {
@@ -70,7 +41,6 @@ const Hero = () => {
             '-=0.4'
           )
           .to('.scroll-container', {
-            // x: 0,
             opacity: 1,
             ease: Power1.easeInOut,
             duration: 1,
@@ -140,8 +110,6 @@ const Hero = () => {
           scale={0.5}
           tollerance={0.3}
           speed={0.2}
-          // onMouseEnter={enterHoverScrollLabelPulse}
-          // onMouseLeave={leaveHoverScrollLabelPulse}
           className='scroll-container relative group mt-10 p-10 w-fit mx-auto flex justify-center items-center opacity-0'
         >
           <a href='#about'>
@@ -157,15 +125,6 @@ const Hero = () => {
                   'group-hover:bg-primary group-hover:animate-pulse'
                 )}
               ></div>
-              {/* 
-              <span
-                className={twMerge(
-                  'scroll-label absolute uppercase opacity-0 text-primary top-1/2 -translate-y-1/2 left-16',
-                  'transition-all ease-in-out duration-75 group-hover:left-14 group-hover:pulse'
-                )}
-              >
-                Scroll
-              </span> */}
             </div>
           </a>
         </MagneticDiv>

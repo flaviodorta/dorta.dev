@@ -1,11 +1,7 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { Layout } from '@/components/Layout';
 import Navbar from '@/components/Navbar';
-import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import { twMerge } from 'tailwind-merge';
 import Hero from '@/components/Hero';
-import ComputerCanvas from '@/components/canvas/Computer';
-import dynamic from 'next/dynamic';
 
 const DynamicComputerCanvas = lazy(
   () => import('@/components/canvas/Computer')

@@ -2,7 +2,7 @@ import { homeAnimation, transition } from '@/recoil/atoms';
 import { timeout } from '@/utils/help-functions';
 import gsap, { Power1 } from 'gsap';
 import { useRef } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useIsomorphicLayoutEffect } from 'usehooks-ts';
 import Loader, { loader } from './canvas/Loader';
 
@@ -31,7 +31,6 @@ const Transition = () => {
         tl.current
           .to('.block', {
             width: '5.1%',
-            // duration: 0.75,
             stagger: {
               amount: 0.75,
             },
@@ -77,7 +76,6 @@ const Transition = () => {
           className='fixed -ml-[var(--layout-padding-xsm)] lg:-ml-[var(--layout-padding-lg)] -mt-[var(--layout-padding-xsm)] lg:-mt-[var(--layout-padding-lg)] w-screen h-screen z-[20]'
         >
           {isLoader && <Loader d={750} />}
-          {/* <Loader d={750} /> */}
           <div className='block block-1' />
           <div className='block block-2' />
           <div className='block block-3' />
