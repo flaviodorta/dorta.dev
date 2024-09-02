@@ -16,6 +16,7 @@ type SidebarActiveContextType = {
   addRefs: (el: HTMLElement) => void;
   offsetTop: number[];
   setOffsetTop: Function;
+  refs: HTMLElement[];
 };
 
 const SidebarActiveContext = createContext<SidebarActiveContextType>({
@@ -24,10 +25,13 @@ const SidebarActiveContext = createContext<SidebarActiveContextType>({
   addRefs: () => {},
   offsetTop: [],
   setOffsetTop: () => {},
+  refs: [],
 });
 
 const SidebarActiveProvider = ({ children }: { children: React.ReactNode }) => {
   const [selected, setSelected] = useState('');
+
+  // ajeitar depois o offsetTop para o scroll dos elementos
   const [offsetTop, setOffsetTop] = useState([]);
 
   const refs = useRef<HTMLElement[]>([]);
@@ -94,7 +98,14 @@ const SidebarActiveProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <SidebarActiveContext.Provider
-      value={{ selected, setSelected, addRefs, setOffsetTop, offsetTop }}
+      value={{
+        selected,
+        setSelected,
+        addRefs,
+        setOffsetTop,
+        offsetTop,
+        refs: refs.current,
+      }}
     >
       {children}
     </SidebarActiveContext.Provider>
