@@ -34,8 +34,8 @@ export default function Page() {
   return (
     <main className='relative bg-black-mate text-white min-h-screen'>
       <Header />
-      <BackgroundBeams />
-      <div className='z-50 gap-[300px] flex flex-col items-center'>
+      {/* <BackgroundBeams /> */}
+      <div className='z-50 gap-[300px] flex-1 flex flex-col items-center'>
         <Home />
         <About />
         <Projects />

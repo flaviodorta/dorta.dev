@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Neue Grotesk";
+  font-family: 'Neue Grotesk';
   font-weight: bold;
-  src: url("../../public/fonts/neue-haas-display-black.ttf");
+  src: url('../../public/fonts/neue-haas-display-black.ttf');
 }
 
 @font-face {
-  font-family: "Neue Grotesk";
+  font-family: 'Neue Grotesk';
   font-weight: lighter;
-  src: url("../../public/fonts/neue-haas-display-light.ttf");
+  src: url('../../public/fonts/neue-haas-display-light.ttf');
 }
 
 @layer base {
@@ -20,13 +20,13 @@
   }
 
   body {
-    font-size: 1.2rem;
+    font-size: clamp(0.4rem, 3vw, 1rem);
     overflow-x: hidden;
     scroll-behavior: smooth;
   }
 
   p {
-    @apply text-white text-lg;
+    @apply text-white;
   }
 }
 
@@ -36,7 +36,7 @@
   }
 
   .neue-font {
-    font-family: "Neue Grotesk", sans-serif;
+    font-family: 'Neue Grotesk', sans-serif;
   }
 
   .divider {

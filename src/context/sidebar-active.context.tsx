@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, {
   createContext,
@@ -7,23 +7,28 @@ import React, {
   useLayoutEffect,
   useRef,
   useState,
-} from "react";
-import { useEventListener } from "usehooks-ts";
+} from 'react';
+import { useEventListener } from 'usehooks-ts';
 
 type SidebarActiveContextType = {
   selected: string;
   setSelected: React.Dispatch<React.SetStateAction<string>>;
   addRefs: (el: HTMLElement) => void;
+  offsetTop: number[];
+  setOffsetTop: Function;
 };
 
 const SidebarActiveContext = createContext<SidebarActiveContextType>({
-  selected: "",
+  selected: '',
   setSelected: () => {},
-  addRefs: (el: HTMLElement) => {},
+  addRefs: () => {},
+  offsetTop: [],
+  setOffsetTop: () => {},
 });
 
 const SidebarActiveProvider = ({ children }: { children: React.ReactNode }) => {
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState('');
+  const [offsetTop, setOffsetTop] = useState([]);
 
   const refs = useRef<HTMLElement[]>([]);
   const addRefs = (el: HTMLElement) => {
@@ -37,31 +42,38 @@ const SidebarActiveProvider = ({ children }: { children: React.ReactNode }) => {
   const cb = (entries: any[]) => {
     entries.forEach((entry: any) => {
       if (entry.isIntersecting)
-        if (entry.target.id !== "home") setSelected(entry.target.id);
+        if (entry.target.id !== 'home') setSelected(entry.target.id);
     });
   };
 
-  const observer = useRef<IntersectionObserver>(
-    new IntersectionObserver(cb, options)
-  );
+  const observer = useRef<IntersectionObserver | null>(null);
 
-  // const observer = useRef<IntersectionObserver | null>(
-  //   typeof IntersectionObserver !== "undefined"
-  //     ? new IntersectionObserver(cb, options)
-  //     : null
-  // );
+  useEffect(() => {
+    if (typeof IntersectionObserver !== 'undefined') {
+      const cb = (entries: IntersectionObserverEntry[]) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.target.id !== 'home') {
+            setSelected(entry.target.id);
+          }
+        });
+      };
+      observer.current = new IntersectionObserver(cb, options);
+      refs.current.forEach((section) => observer.current?.observe(section));
+    }
 
-  // acionar o sidebar link somente no primeiro render
+    return () => observer.current?.disconnect();
+  }, []);
+
   useLayoutEffect(() => {
     if (!selected && observer.current) {
-      refs.current.forEach((section) => observer.current.observe(section));
+      refs.current.forEach((section) => observer.current!.observe(section));
     } else {
       observer.current?.disconnect();
     }
   }, [selected]);
 
   // mudar o sidebar link durante o scroll
-  useEventListener("scroll", () => {
+  useEventListener('scroll', () => {
     const scrollY = window.scrollY;
 
     refs.current.forEach((el, idx) => {
@@ -77,11 +89,13 @@ const SidebarActiveProvider = ({ children }: { children: React.ReactNode }) => {
       if (scrollY > 3500) setSelected(refs.current[3].id);
     });
 
-    if (scrollY === 0) setSelected("home");
+    if (scrollY === 0) setSelected('home');
   });
 
   return (
-    <SidebarActiveContext.Provider value={{ selected, setSelected, addRefs }}>
+    <SidebarActiveContext.Provider
+      value={{ selected, setSelected, addRefs, setOffsetTop, offsetTop }}
+    >
       {children}
     </SidebarActiveContext.Provider>
   );
