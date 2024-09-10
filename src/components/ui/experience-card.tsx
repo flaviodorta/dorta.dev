@@ -12,7 +12,7 @@ const ExperienceCard = ({
   tags,
 }: ExperienceCardProps) => {
   return (
-    <li className='flex flex-col gap-8'>
+    <li className='flex w-full flex-col gap-8'>
       <div className='flex justify-between items-center'>
         <Reveal>
           <h3 className='font-bold text-2xl'>{title}</h3>
