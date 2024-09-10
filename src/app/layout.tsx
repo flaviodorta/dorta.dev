@@ -28,7 +28,7 @@ export default function RootLayout({
         id='root'
         className={cn([
           poppins.className,
-          'grid grid-cols-[60px_1fr] w-full bg-black-mate',
+          'grid grid-cols-[60px_1fr] mx-auto md:grid-cols-[60px_1fr] w-full bg-black-mate',
         ])}
       >
         <SidebarActiveProvider>
