@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 
 export default function Page() {
   return (
-    <main className='relative p-[80px] w-full mx-auto bg-black-mate text-white min-h-screen'>
+    <main className='relative pl-[60px] pr-[40px]  w-full mx-auto bg-black-mate text-white min-h-screen'>
       <Header />
       {/* <BackgroundBeams /> */}
       <div className='z-50 -mt-40 md:mt-0 mx-auto w-full gap-[100px] md:gap-[300px] flex-1 flex flex-col items-center'>
