@@ -16,7 +16,7 @@ const Sidebar = () => {
       initial={{ x: -70 }}
       animate={{ x: 0 }}
       transition={{ duration: 0.5 }}
-      className='min-h-screen bg-black z-10'
+      className='fixed min-h-screen h-full bg-black z-10'
     >
       <aside className='pt-4 font-thin z-10 sticky top-0 h-screen right-0 bottom-0 w-[60px]'>
         <div className='w-12 h-12 mx-auto flex-center rounded-md bg-black-mate'>
