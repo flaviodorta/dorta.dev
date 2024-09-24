@@ -15,8 +15,8 @@ const ProjectCard = ({
   githubLink,
   projectLink,
   techTags,
-  modalProps,
-}: ProjectCardProps) => {
+}: // modalProps,
+ProjectCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLElement>(null!);
 
@@ -33,7 +33,7 @@ const ProjectCard = ({
             <Image
               width={400}
               height={250}
-              src='/example-project.jpg'
+              src={imgSrc}
               alt='project'
               className='relative top-[24%] group-hover:rotate-6 group-hover:-translate-y-4 transition-transform duration-100 rounded-lg'
             />
@@ -43,11 +43,15 @@ const ProjectCard = ({
 
         <Reveal width='w-full'>
           <div className='flex gap-4 items-center'>
-            <h3 className='font-bold text-2xl whitespace-nowrap'>Lilo Chat</h3>
+            <h3 className='font-bold text-2xl whitespace-nowrap'>{title}</h3>
             <div className='divider' />
             <div className='flex gap-4'>
-              <FaGithub className='icon-project-card' />
-              <LuExternalLink className='icon-project-card' />
+              <a href={githubLink}>
+                <FaGithub className='icon-project-card' />
+              </a>
+              <a href={projectLink}>
+                <LuExternalLink className='icon-project-card' />
+              </a>
             </div>
           </div>
         </Reveal>
@@ -55,12 +59,11 @@ const ProjectCard = ({
         <Reveal>
           <div>
             <p>
-              A real-time application to share YouTube videos while chatting
-              with other strangers.
+              {description}
               <span className='inline-block'>
                 <span
                   onClick={() => setIsOpen(true)}
-                  className='group ml-2 text-base text-primary hover:underline cursor-pointer flex items-center gap-1'
+                  className='group text-base text-primary hover:underline cursor-pointer flex items-center gap-1'
                 >
                   Learn more{' '}
                   <IoIosArrowForward className='text-sm group-hover:translate-x-1 transition-transform duration-100' />
@@ -74,12 +77,12 @@ const ProjectCard = ({
       <Modal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        description={<></>}
-        githubLink=''
-        projectLink=''
-        imgSrc=''
-        techTags={[]}
-        title=''
+        description={<>{description}</>}
+        githubLink={githubLink}
+        projectLink={projectLink}
+        imgSrc={imgSrc}
+        techTags={techTags}
+        title={title}
       />
     </>
   );

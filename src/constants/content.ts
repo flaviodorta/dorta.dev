@@ -21,4 +21,61 @@ const experienceCardsContents: ExperienceCardProps[] = [
   },
 ];
 
-export { experienceCardsContents };
+type ModalProps = {
+  isOpen: boolean;
+  setIsOpen: Function;
+  title: string;
+  imgSrc: string;
+  githubLink: string;
+  projectLink: string;
+  techTags: string[];
+  description: JSX.Element;
+};
+
+const projectsContent = [
+  {
+    title: 'Lilo Chat',
+    description:
+      'An app that lets you chat with strangers while watching shared and synchronized YouTube videos.',
+    imgSrc: '/projects/project-1.png',
+    githubLink: 'https://github.com/flaviodorta/lilochat-app',
+    projectLink: 'https://www.lilochat.io/',
+    techTags: ['TypeScript', 'NextJS', 'Postgres', 'Supabase', 'Tailwind'],
+  },
+  {
+    title: 'Todofeito',
+    description:
+      'An application designed to efficiently organize your daily tasks.',
+    imgSrc: '/projects/project-2.png',
+    githubLink: 'https://github.com/flaviodorta/todofeito-app',
+    projectLink: 'https://todofeito.netlify.app/today',
+    techTags: ['TypeScript', 'ReactJS', 'Zustand', 'Framer Motion', 'Tailwind'],
+  },
+  {
+    title: 'Connecting People',
+    description:
+      'An engaging website for a digital marketing and web design company specializing in innovative solutions.',
+    imgSrc: '/projects/project-3.png',
+    githubLink: 'https://github.com/flaviodorta/connecting-people',
+    projectLink: 'https://connecting-people-7cdy.vercel.app/',
+    techTags: [
+      'TypeScript',
+      'ReactJS',
+      'Zustand',
+      'Framer Motion',
+      'Tailwind',
+      'ThreeJSs',
+    ],
+  },
+  {
+    title: 'Decimal-Binary Converter',
+    description:
+      'An advanced calculator for converting numbers across different mathematical bases.',
+    imgSrc: '/projects/project-4.png',
+    githubLink: 'https://github.com/flaviodorta/bin2dec-app',
+    projectLink: 'https://decimalbinaryconversor.netlify.app/',
+    techTags: ['JavaScript', 'HTML', 'CSS'],
+  },
+];
+
+export { experienceCardsContents, projectsContent };

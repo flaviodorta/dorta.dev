@@ -5,6 +5,8 @@ import ProjectCard from '../ui/project-card';
 import { useLayoutEffect, useRef } from 'react';
 import Divider from '../ui/divider';
 import Reveal from '../ui/reveal';
+import { projectsContent } from '@/constants/content';
+import { profileEnd } from 'console';
 
 const Projects = () => {
   const { addRefs } = useSidebarActive();
@@ -26,10 +28,21 @@ const Projects = () => {
       </div>
 
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+        {projectsContent.map((project, idx) => (
+          <ProjectCard
+            key={idx}
+            title={project.title}
+            description={<p>{project.description}</p>}
+            githubLink={project.githubLink}
+            projectLink={project.projectLink}
+            imgSrc={project.imgSrc}
+            techTags={project.techTags}
+          />
+        ))}
+        {/* <ProjectCard />
         <ProjectCard />
         <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
+        <ProjectCard /> */}
       </div>
     </div>
   );

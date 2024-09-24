@@ -56,37 +56,31 @@ const Modal = ({
           width={1000}
           height={300}
           layout='responsive'
-          src='/example-project.jpg'
+          src={imgSrc}
           alt='project'
         />
         <div className='p-7 flex flex-col gap-8'>
           <div className='flex gap-4 justify-between items-center'>
-            <h3 className='text-white text-3xl font-bold'>Project Title</h3>
+            <h3 className='text-white text-3xl font-bold'>{title}</h3>
 
             <Divider />
             <div className='flex gap-4'>
-              <FaGithub className='icon-project-card' />
-              <LuExternalLink className='icon-project-card' />
+              <a href={githubLink}>
+                <FaGithub className='icon-project-card' />
+              </a>
+              <a href={projectLink}>
+                <LuExternalLink className='icon-project-card' />
+              </a>
             </div>
           </div>
 
           <div className='flex flex-wrap gap-2'>
-            {['React', 'TypeScript', 'AWS'].map((tag, idx) => (
+            {techTags.map((tag, idx) => (
               <Tag key={idx} title={tag} />
             ))}
           </div>
 
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry&apos;s standard dummy
-            text ever since the 1500s, when an unknown printer took a galley of
-            type and scrambled it to make a type specimen book. It has survived
-            not only five centuries, but also the leap into electronic
-            typesetting, remaining essentially unchanged. It was popularised in
-            the 1960s with the release of Letraset sheets containing Lorem Ipsum
-            passages, and more recently with desktop publishing software like
-            Aldus PageMaker including versions of Lorem Ipsum.
-          </p>
+          {description}
         </div>
       </motion.div>
     </div>
