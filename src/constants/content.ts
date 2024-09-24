@@ -48,7 +48,7 @@ const projectsContent = [
       'An application designed to efficiently organize your daily tasks.',
     imgSrc: '/projects/project-2.png',
     githubLink: 'https://github.com/flaviodorta/todofeito-app',
-    projectLink: 'https://todofeito.netlify.app/today',
+    projectLink: 'https://todofeito.netlify.app/',
     techTags: ['TypeScript', 'ReactJS', 'Zustand', 'Framer Motion', 'Tailwind'],
   },
   {
