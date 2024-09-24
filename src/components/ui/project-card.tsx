@@ -46,10 +46,10 @@ ProjectCardProps) => {
             <h3 className='font-bold text-2xl whitespace-nowrap'>{title}</h3>
             <div className='divider' />
             <div className='flex gap-4'>
-              <a href={githubLink}>
+              <a href={githubLink} target='_blank' rel='noopener noreferrer'>
                 <FaGithub className='icon-project-card' />
               </a>
-              <a href={projectLink}>
+              <a href={projectLink} target='_blank' rel='noopener noreferrer'>
                 <LuExternalLink className='icon-project-card' />
               </a>
             </div>
