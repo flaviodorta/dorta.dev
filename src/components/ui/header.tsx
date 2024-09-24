@@ -34,6 +34,7 @@ const Header = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         className='rounded-lg p-4 font-normal cursor-pointer text-primary text-lg border-primary border-[1px]'
+        onClick={() => window.open('/cv.pdf')}
       >
         My resume
       </motion.button>
